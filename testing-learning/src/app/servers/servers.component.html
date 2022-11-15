@@ -1,1 +1,26 @@
-<app-server></app-server>
+<label>Server name</label>
+<!-- <input type="text" class="form-control" (input)="onUpdateServerName($event)"> -->
+<input type="text" class="form-control" [(ngModel)]="serverName">
+<button class="btn btn-primary" [disabled]="!allowNewServer" (click)="onCreateServer()">Add Server</button>
+<p [innerText]="allowNewServer"></p>
+<p *ngIf="serverCreated;else noServer">{{serverCreationStatus}}</p>
+<ng-template #noServer>
+  <p>No server was created!</p>
+</ng-template>
+<!-- <p>{{serverName}}</p> -->
+<app-server *ngFor="let server of servers"></app-server>
+<hr>
+
+<label>User Name</label>
+<input type="text" class="form-control" [(ngModel)]='username'>
+<button class="btn btn-priamry" [disabled]="username===''" (click)="onClickHandler()">Add</button>
+<p>{{username}}</p>
+<hr>
+
+<button (click)="isClicked()" (click)="incrementLog()">Display Details</button>
+
+<p *ngIf="clickStatus=== true">Secret password=tuna</p>
+<div *ngFor="let logItem of incrementingArr" [ngStyle]="{backgroundColor: logItem>=5?'blue':'white',
+color: logItem>=5?'white':'black'}">
+  {{logItem}}
+</div>
