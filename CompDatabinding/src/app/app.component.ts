@@ -24,5 +24,7 @@ export class AppComponent {
       newName: bluePrintData.newName
     });
   }
-
+  onChangeFirst() {
+    this.serverElements[0].name = 'Changed!';
+  }
 }
