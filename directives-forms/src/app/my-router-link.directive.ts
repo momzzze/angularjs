@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit, Optional, Renderer2, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional, Renderer2, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
   selector: '[appMyRouterLink]'
@@ -6,15 +6,24 @@ import { Directive, ElementRef, Input, OnDestroy, OnInit, Optional, Renderer2, T
 export class MyRouterLinkDirective implements OnInit, OnDestroy {
   @Input() appMyRouterLink!: string;
   @Input() template!: TemplateRef<any>;
+
+  @HostListener('mouseenter') mouseEnterHandler2(e: MouseEvent) {
+    console.log('mouse enter', e);
+
+  }
+  @HostListener('mouseleave', ['$event']) mouseLeaveHandler2(e: MouseEvent) {
+    console.log('mouse leave', e);
+
+  }
+
   unsub: (() => void) | undefined;
   viewHasBeenCreated = false;
+
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2,
     private vc: ViewContainerRef,
-    @Optional() private templateRef: TemplateRef<any>
   ) {
-    this.template = this.templateRef || this.template;
     this.unsub = this.renderer.listen(this.elementRef.nativeElement, 'mouseover', this.mouseOverHandler);
     this.unsub = this.renderer.listen(this.elementRef.nativeElement, 'mouseleave', this.mouseOverEndHandler);
     // this.renderer.setAttribute(this.elementRef.nativeElement, 'data-test', '123');
